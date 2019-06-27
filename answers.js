@@ -78,15 +78,24 @@ var x = 5;
 	var x = 10;
 	console.log(x);
 })();
-// Answer: The second one is 10, for sure because here, x is defined and defined as 10. So, the answer is 10. And the first one is undefined but unable to describe the real explanation.
-// if I do -
-// var x = 5;
-// (function () {
-//     console.log(x);
-//     var x = 10;
-//     console.log(x);
-// })(x);
-// it still shows undefined.
+// Answer: The second one is 10, for sure because here, x is defined and defined as 10. So, the answer of second console-log is 10. But the first one is undefined. Which means this will print out undefined and 10 rather than 5 and 10 since JavaScript always moves variable declarations(not initializations) to the top of the scope, making the code equivalent to:
+var x = 5;
+(function () {
+	var x; // it's the same, `x` is not defined.
+	console.log(x);
+	x = 10;
+	console.log(x);
+})();
+
+// To get 5 and 10 as our answers, we have to write this code in the way given below:
+var x = 5;
+(function () {
+	x; // here, `x` is reassigned.
+	console.log(x);
+	x = 10;
+	console.log(x);
+})();
+// it will render 5 and 10.
 
 // 5.
 (function () {
