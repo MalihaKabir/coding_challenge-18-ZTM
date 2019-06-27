@@ -1,18 +1,25 @@
 // 0
 var result = (function (a) {
-    return a * a;
-}(5.5));
+	return a * a;
+})(5.5);
 console.log(result); //guess the output
 
 // Answer:
 // here 5.5 is in a parenthesis. That means it's a function call. So, 5.5 * 5.5 = 30.25.
 
 // 1
-// const b = [1, 2, 3];
-// const f = (a, ...b) => a + b;
+const b = [ 1, 2, 3 ];
+const f = (a, ...b) => a + b;
 
-// console.log(f(1));
-// Answer:
+console.log(f(1));
+// Answer: It's 1. Let me explain. First of all, "...b" is clearly an array. And initially "b" is a variable though it's value is given as an array, yet here "b" is a global variable.
+// Now, b from the function scope(a + b) can access the global one but as we're already defining b(...b) as an argument which can be anything, e.g. c or d or x, y, z, anything, this means,
+// a + b = a + ...b and this is why, the variable 'b' and the parameter '...b' are definitely not the same. If you say -
+const b = [ 1, 2, 3 ];
+const f = (a, ...k) => a + k;
+
+console.log(f(1)); // the answer will remain the same.
+// Now comes to the second part. In the function, '...k' or "...b" parameter means it's an array. And we're giving only the value of a that is 1(console.log(f(1))) but where is the value of b? Yes, we didn't pass it. And that means "...b" is an empty array. If you add anything with an empty array, it'll render the number as a string. So 1 + [] = "1". And the log of the function(console.log(f(1));) renders 1.
 
 // 2.1:
 let f = (...f) => f;
@@ -20,49 +27,121 @@ console.log(f(10));
 // Answer: as (...f) is an array of f; hence, (...f) = [f] = [10]. Ans is [10].
 
 // 2.2
-f = (...f) => f.reduce(f => f);
+f = (...f) => f.reduce((f) => f);
 console.log(f(10));
 // Answer: well, reduce just reduce the array and give the value only.
 // So, (...f) = [10] => [10].reduce([10] => 10) and answer is 10.
 
 // 2.3
-function ff() {
-    return arguments;
+function ff () {
+	return arguments;
 }
 console.log(ff(10));
-// Answer:
+// Answer: Output is an argument array - Argument[10].
+// Explain:
 
 // 2.4
-f = f => f;
+f = (f) => f;
 console.log(f(10));
-// answer: 10.
+// answer: 10.(simple function)
 
 // 3.
 let foo = 10;
 bar = 3;
 (function () {
-    let foo = 2;
-    bar = 1;
-}())
+	let foo = 2;
+	bar = 1;
+})();
 bar = bar + foo;
 console.log(bar);
-// Answer: foo = 10 is a global variable and foo = 2 is a local one as it is in a (function's) scope. But bar is always a global variable. Because in the func's scope, bar isn't redefined, rather it's reassigned. That means, when out of the scope, "bar = bar + foo" is calling, that means bar = 1 + 10 = 11. So, the answer is 11.
+// Answer: foo = 10 is a global variable and foo = 2 is a local one as it is in a (function's) scope. But bar is always a global variable. Because in the function's scope, bar isn't redefined, rather it's reassigned. That means, when out of the scope, "bar = bar + foo" is calling, that means bar = 1 + 10 = 11.
+// So, the answer is 11.
 
 // 4.
 var x = 5;
 
 (function () {
-    console.log(x);
-    var x = 10;
-    console.log(x);
+	console.log(x);
+	var x = 10;
+	console.log(x);
 })();
-// Answer: The second one is 10, for sure, but still not getting why the first answer is undefined instead of 5.
+// Answer: The second one is 10, for sure because here, x is defined and defined as 10. So, the answer is 10. And the first one is undefined but unable to describe the real explanation.
+// if I do -
+// var x = 5;
+// (function () {
+//     console.log(x);
+//     var x = 10;
+//     console.log(x);
+// })(x);
+// it still shows undefined.
 
 // 5.
 (function () {
-    var a = b = 3;
-})();   
+	var a = (b = 3);
+})();
 
 console.log(typeof a);
 console.log(typeof b);
 // Answer: First, we get a = b and we've to identify the type of a. As 'b' is still not defined, so type of b is undefined. But then b's value is assigned as a number which is 3. That means type of b is a number.
+
+// 6.
+function foo1 () {
+	return {
+		bar : 'bar',
+	};
+}
+
+function foo2 () {
+	return;
+	{
+		('bar');
+	}
+}
+
+console.log(foo1());
+console.log(foo2());
+// Answer:
+
+// 7.
+// Answers:
+console.log(0.1 + 0.2); // 0.30000000000000004
+console.log(0.1 + 0.2 === 0.3); // false
+// "===" is very sensitive and as their identities are different, so ans is false. "===" means same identity from both sides has to match while "==" is just renders the equality.
+console.log(9007199254740993 === 9007199254740992); // true
+
+// 8.
+const a = {},
+	b = { c: 'b' },
+	c = { b: 'c' };
+
+a[b] = 111;
+a[c] = 333;
+
+console.log(a[b]);
+// Answer:
+
+// 9.
+for (var i = 0; i < 5; i++) {
+	setTimeout(function () {
+		console.log(i);
+	}, i * 1000);
+}
+
+for (let i = 0; i < 5; i++) {
+	setTimeout(function () {
+		console.log(i);
+	}, i * 1000);
+}
+// Answer:
+
+// 10.
+// Answers:
+console.log(1 < 2 < 2); // true
+// Here, bring  if you add parentheses to show how JavaScript is interpreting it, it gets much clearer: (1 < 2 ) < 2
+// 1 < 2 = true and we know in javascript, 'true' is coerced into a number.
+// Hence, (1 < 2 ) < 2 = true < 2 = 1 < 2 = true.
+
+console.log(3 > 2 > 1); // false
+// If you do the same and add parentheses it'll also get clearer in the above way: (3 > 2 )> 1.
+// (3 > 2) = true. Yes, three is greater than two. Now, true = 1.
+// That means, 3 > 2 > 1 = true > 1 = 1 > 1 = false.
