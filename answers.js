@@ -50,7 +50,6 @@ function ff () {
 console.log(ff(10, 12, 13));
 // You'll get:
 Arguments(3)[(10, 12, 13)] / [ 10, 12, 13 ];
-// Though in ES6, 'arguments' is used as 'rest parameters'.
 // Note: “Array - like” means that arguments has a length property and properties indexed from zero, but it doesn't have Array's built -in methods like forEach() and map().
 
 // 2.4:
@@ -114,9 +113,11 @@ function foo2 () {
 	}
 }
 
-console.log(foo1());
-console.log(foo2());
-// Answers:
+
+console.log(foo1()); // ans: {bar: "bar"}.
+// Explanation: As it's returning an object in the scope, so it'll return an object in the log as well.
+console.log(foo2()); // ans: undefined because of syntax error.
+
 
 // 7.
 // Answers:
