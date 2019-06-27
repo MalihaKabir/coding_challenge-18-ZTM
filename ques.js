@@ -44,7 +44,8 @@ var x = 5;
 	console.log(x);
 })();
 
-5(function () {
+5;
+(function () {
 	var a = (b = 3);
 })();
 

@@ -5,7 +5,8 @@ var result = (function (a) {
 console.log(result); //guess the output
 
 // Answer:
-// here 5.5 is in a parenthesis. That means it's a function call. So, 5.5 * 5.5 = 30.25.
+// here 5.5 is in a parenthesis. That means it's a function call. So, the function will take the argument: 5.5
+// that means, a * a = 5.5 * 5.5 = 30.25.
 
 // 1
 const b = [ 1, 2, 3 ];
@@ -43,12 +44,12 @@ console.log(ff(10)); // ans: [10]
 // Let's explain a little bit more. In function, 'arguments' is an array-like object accessible inside functions that contains the values of the arguments passed to that function. It is an object but it appears like an array.
 // Here, 'arguments' is gathering all the elements you're passing and rendering them as an array.
 // For instance: if you pass it in the below way:
-function ff() {
-    return arguments;
+function ff () {
+	return arguments;
 }
-console.log(ff(10, 12, 13))
+console.log(ff(10, 12, 13));
 // You'll get:
-Arguments(3)[10, 12, 13] / [10, 12, 13]
+Arguments(3)[(10, 12, 13)] / [ 10, 12, 13 ];
 // Though in ES6, 'arguments' is used as 'rest parameters'.
 // Note: “Array - like” means that arguments has a length property and properties indexed from zero, but it doesn't have Array's built -in methods like forEach() and map().
 
@@ -90,7 +91,8 @@ var x = 5;
 
 // 5.
 (function () {
-	var a = (b = 3);
+	var a = (b = 3); // or
+	// var a = b = 3;
 })();
 
 console.log(typeof a); // undefined
@@ -108,7 +110,7 @@ function foo1 () {
 function foo2 () {
 	return;
 	{
-		('bar');
+		'bar';
 	}
 }
 
