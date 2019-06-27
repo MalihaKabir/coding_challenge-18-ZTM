@@ -1,3 +1,4 @@
+// [11 Questions in total]
 // 0
 var result = (function (a) {
 	return a * a;
