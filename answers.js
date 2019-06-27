@@ -122,7 +122,7 @@ console.log(foo2()); // ans: undefined because of syntax error.
 function foo2() {
     return;          // Note the `;` after `return`
     {
-        bar: "hello"
+		'bar';
     };
 }
 // The `return` statement terminates and  after that there is an object, which is basically unreachable code. Since the `return` statement doesn't return anything explicitly, `undefined` will be returned.
