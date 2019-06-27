@@ -39,7 +39,7 @@ function ff () {
 }
 console.log(ff(10));
 // Answer: Output is an argument array - Argument[10].
-// Explain:
+// Explanation:
 
 // 2.4
 f = (f) => f;
@@ -112,6 +112,14 @@ console.log(0.1 + 0.2 === 0.3); // false
 // "===" is very sensitive and as their identities are different, so the ans is false. "===" means same identity from both sides has to match identically.
 console.log(9007199254740993 === 9007199254740992); // true
 // Though it was supposed to false but it's true because while Math.pow(2, 53) is the largest directly representable integer, it's unsafe in that. It's also the first value who's representation is also an approximation of another value.
+// In other words, All numbers in JavaScript are internally represented by 64-bit floating point numbers. That means it can exactly represent every integer from 0 up to 9007199254740992 (hex value 0x20000000000000). Any integers greater than that (or less than it's negative counterpart) may need to be rounded to the closest approximate value.
+
+// Observe:
+// 9007199254740992 === 9007199254740993
+// > true
+// However, two numbers that are rounded to sufficiently different approximate values still evaluate to different values when you compare them.For example:
+// 9007199254740992 === 9007199254740994
+// > false.
 
 // 8.
 const a = {},
