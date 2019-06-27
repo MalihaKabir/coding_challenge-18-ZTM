@@ -12,24 +12,25 @@ const b = [ 1, 2, 3 ];
 const f = (a, ...b) => a + b;
 
 console.log(f(1));
-// Answer: It's 1. Let me explain. First of all, "...b" is clearly an array. And initially "b" is a variable though it's value is given as an array, yet here "b" is a global variable.
-// Now, b from the function scope(a + b) can access the global one but as we're already defining b(...b) as an argument which can be anything, e.g. c or d or x, y, z, anything, this means,
-// a + b = a + ...b and this is why, the variable 'b' and the parameter '...b' are definitely not the same. If you say -
+// Answer: It's 1. Let me explain. First of all, "...b" is clearly an array according to rest parameter syntax. And initially "b" is a variable though it's value is given as an array, yet here "b" is a global variable.
+// Now, b from the function scope:(a + b) can access the global one but as we're already defining b(...b) as an argument which can be anything, e.g. c or d or x, y, z, anything, this means,
+// a + b = a + ...b(the param b, not the variable b) and this is why, the variable 'b' and the parameter '...b' are definitely not the same. If you say -
 const b = [ 1, 2, 3 ];
 const f = (a, ...k) => a + k;
 
-console.log(f(1)); // the answer will remain the same.
-// Now comes to the second part. In the function, '...k' or "...b" parameter means it's an array. And we're giving only the value of a that is 1(console.log(f(1))) but where is the value of b? Yes, we didn't pass it. And that means "...b" is an empty array. If you add anything with an empty array, it'll render the number as a string. So 1 + [] = "1". And the log of the function(console.log(f(1));) renders 1.
+console.log(f(1)); // the answer will remain the same, 1.
+// Now comes to the second part. In the function, '...k' or "...b" parameter means it's an array. And we're giving only the value of 'a' which is 1(console.log(f(1))) .
+// But where is the value of b ? Yes, we didn't pass it. And that means "...b" is an empty array. If you add anything with an empty array, it'll render the number as a string. Which means, 1 + [] = "1". And the log of the function - 'console.log(f(1));' renders 1.
 
 // 2.1:
 let f = (...f) => f;
 console.log(f(10));
 // Answer: as (...f) is an array of f; hence, (...f) = [f] = [10]. Ans is [10].
 
-// 2.2
+// 2.2:
 f = (...f) => f.reduce((f) => f);
 console.log(f(10));
-// Answer: well, reduce just reduce the array and give the value only.
+// Answer: well, reduce() method just reduce the array and give the value only in a single output value. In other words, the reduce() method executes a reducer function (that you provide) on each element of the array, resulting in a single output value.
 // So, (...f) = [10] => [10].reduce([10] => 10) and answer is 10.
 
 // 2.3
@@ -54,7 +55,8 @@ bar = 3;
 })();
 bar = bar + foo;
 console.log(bar);
-// Answer: foo = 10 is a global variable and foo = 2 is a local one as it is in a (function's) scope. But bar is always a global variable. Because in the function's scope, bar isn't redefined, rather it's reassigned. That means, when out of the scope, "bar = bar + foo" is calling, that means bar = 1 + 10 = 11.
+// Answer: foo = 10 is a global variable and foo = 2 is a local one as it is in a function's scope. But 'bar' is always a global variable. Because in the function's scope, bar isn't redefined, rather it's reassigned.
+// That means, when, out of the scope, "bar = bar + foo" is calling, bar = 1 + 10 = 11.
 // So, the answer is 11.
 
 // 4.
@@ -80,9 +82,10 @@ var x = 5;
 	var a = (b = 3);
 })();
 
-console.log(typeof a);
-console.log(typeof b);
-// Answer: First, we get a = b and we've to identify the type of a. As 'b' is still not defined, so type of b is undefined. But then b's value is assigned as a number which is 3. That means type of b is a number.
+console.log(typeof a); // undefined
+console.log(typeof b); // number
+// Answer: First, we get a = b and we've to identify the type of a. As 'b' is still not defined, so type of 'b' is undefined.
+// But then the value of b is assigned as a number which is 3. That means type of b is a number.
 
 // 6.
 function foo1 () {
@@ -100,14 +103,15 @@ function foo2 () {
 
 console.log(foo1());
 console.log(foo2());
-// Answer:
+// Answers:
 
 // 7.
 // Answers:
 console.log(0.1 + 0.2); // 0.30000000000000004
 console.log(0.1 + 0.2 === 0.3); // false
-// "===" is very sensitive and as their identities are different, so ans is false. "===" means same identity from both sides has to match while "==" is just renders the equality.
+// "===" is very sensitive and as their identities are different, so the ans is false. "===" means same identity from both sides has to match identically.
 console.log(9007199254740993 === 9007199254740992); // true
+// Though it was supposed to false but it's true because while Math.pow(2, 53) is the largest directly representable integer, it's unsafe in that. It's also the first value who's representation is also an approximation of another value.
 
 // 8.
 const a = {},
