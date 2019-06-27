@@ -2,7 +2,7 @@
 var result = (function (a) {
 	return a * a;
 })(5.5);
-console.log(result); //guess the output
+console.log(result); // output is 30.25
 
 // Answer:
 // here 5.5 is in a parenthesis. That means it's a function call. So, the function will take the argument: 5.5
@@ -14,14 +14,14 @@ const f = (a, ...b) => a + b;
 
 console.log(f(1));
 // Answer: It's 1. Let me explain. First of all, "...b" is clearly an array according to rest parameter syntax. And initially "b" is a variable though it's value is given as an array, yet here "b" is a global variable.
-// Now, b from the function scope:(a + b) can access the global one but as we're already defining b(...b) as an argument which can be anything, e.g. c or d or x, y, z, anything, this means,
+// Now, b from the function scope:(a + b) can access the global one but as we're already defining b(...b) as a parameter which can be anything, e.g. c or d or x, y, z, anything, this means,
 // a + b = a + ...b(the param b, not the variable b) and this is why, the variable 'b' and the parameter '...b' are definitely not the same. If you say -
 const b = [ 1, 2, 3 ];
 const f = (a, ...k) => a + k;
 
 console.log(f(1)); // the answer will remain the same, 1.
-// Now comes to the second part. In the function, '...k' or "...b" parameter means it's an array. And we're giving only the value of 'a' which is 1(console.log(f(1))) .
-// But where is the value of b ? Yes, we didn't pass it. And that means "...b" is an empty array. If you add anything with an empty array, it'll render the number as a string. Which means, 1 + [] = "1". And the log of the function - 'console.log(f(1));' renders 1.
+// Now comes to the second part. In the function, '...k' or "...b" parameter means it's an array. And we're giving only the argument of 'a' which is 1(in console.log(f(1))) .
+// But where is the argument of 'b' or '...b' parameter? Yes, we didn't pass it. And that means "...b" is an empty array. If you add anything with an empty array, it'll render the number as a string. Which means, 1 + [] = "1". And the log of the function - 'console.log(f(1));' renders 1.
 
 // 2.1:
 let f = (...f) => f;
