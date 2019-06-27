@@ -100,24 +100,32 @@ console.log(typeof b); // number
 // But then the value of b is assigned as a number which is 3. That means type of b is a number.
 
 // 6.
-function foo1 () {
-	return {
-		bar : 'bar',
-	};
+function foo1() {
+    return {
+        bar: 'bar',
+    };
 }
 
-function foo2 () {
-	return;
-	{
-		'bar';
-	}
+function foo2() {
+    return
+    {
+        'bar';
+    }
 }
-
 
 console.log(foo1()); // ans: {bar: "bar"}.
 // Explanation: As it's returning an object in the scope, so it'll return an object in the log as well.
 console.log(foo2()); // ans: undefined because of syntax error.
+// Let's explain. When a 'continue', 'break', 'return', 'throw', or 'yield' token is encountered and a "LineTerminator" is encountered before the next token, a semicolon is automatically inserted after the 'continue', 'break', 'return', 'throw', or 'yield' token.
 
+// So the code will become like this:
+function foo2() {
+    return;          // Note the `;` after `return`
+    {
+        bar: "hello"
+    };
+}
+// The `return` statement terminates and  after that there is an object, which is basically unreachable code. Since the `return` statement doesn't return anything explicitly, `undefined` will be returned.
 
 // 7.
 // Answers:
