@@ -174,8 +174,9 @@ a[c] = 333;
 
 console.log(a[b]);
 // Answer: The output is 333(not 111).
-// The reason for this is as follows: When setting an object property, JavaScript will implicitly stringify the parameter value. In this case, since b and c are both objects, they will both be converted to "[object Object]". As a result, a[b] and a[c] are both equivalent to a["[object Object]" and can be used interchangeably. Therefore, setting or referencing a[c] is precisely the same as setting or referencing a[b].
-// If you even use it in the below way:
+// The reason for this is as follows: When setting an object property, JavaScript will implicitly stringify the parameter value. In this case, since b and c are both objects, they will both be converted to "[object Object]". As a result, a[b] and a[c] are both equivalent to a["[object Object]"] and can be used interchangeably.
+// Therefore, setting or referencing a[c] is precisely the same as setting or referencing a[b].
+// To make this concept clearer, if you use it in the below way:
 var a = {},
 	b = { key: 'b' },
 	c = { key: 'c' };
@@ -184,7 +185,8 @@ a[b] = 123;
 a[c] = 456;
 
 console.log(a[b]);
-// you'll get 456 instead of 123. And even if you declare a[b] later, after declaring a[c], you'll get the latest declared value:
+// you'll get 456 instead of 123.
+// And even if you declare a[b] later, after declaring a[c], you'll get the latest declared value:
 const a = {},
 	b = { c: 'b' },
 	c = { b: 'c' };
