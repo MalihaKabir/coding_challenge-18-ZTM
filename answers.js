@@ -136,12 +136,23 @@ function foo2() {
     };
 }
 // The `return` statement terminates and after that there is an object, which is basically unreachable code. Since the `return` statement doesn't return anything explicitly, `undefined` will be returned.
+// No error is thrown since the remainder of the code is perfectly valid, even though it doesn’t ever get invoked or do anything (it is simply an unused code block that defines a property 'bar' which is equal to the string "hello").
+// This behavior also argues for following the convention of placing an opening curly brace at the end of a line in JavaScript, rather than on the beginning of a new line. As shown here, this becomes more than just a stylistic preference in JavaScript.
 
 // 7.
 // Answers:
 console.log(0.1 + 0.2); // 0.30000000000000004
 console.log(0.1 + 0.2 === 0.3); // false
-// "===" is very sensitive and as their identities are different, so the ans is false. "===" means same identity from both sides has to match identically.
+// "===" is very sensitive and as their identities are different, so the ans is false. "===" means same identity from both sides has to match identically. Numbers in JavaScript are all treated with floating point precision and as such, may not always yield the expected results.
+// The example provided above is classic case that demonstrates this issue. Surprisingly, it prints out:
+0.30000000000000004 // false
+// A typical solution is to compare the absolute difference between two numbers with the special constant Number.EPSILON:
+function areTheNumbersAlmostEqual(num1, num2) {
+	return Math.abs(num1 - num2) < Number.EPSILON;
+}
+console.log(areTheNumbersAlmostEqual(0.1 + 0.2, 0.3));
+// Note:The Number.EPSILON property represents the difference between 1 and the smallest floating point number greater than 1.
+
 console.log(9007199254740993 === 9007199254740992); // true
 // Though it was supposed to false but it's true because while Math.pow(2, 53) is the largest directly representable integer, it's unsafe in that. It's also the first value who's representation is also an approximation of another value.
 
@@ -162,7 +173,27 @@ a[b] = 111;
 a[c] = 333;
 
 console.log(a[b]);
-// Answer:
+// Answer: The output is 333(not 111).
+// The reason for this is as follows: When setting an object property, JavaScript will implicitly stringify the parameter value. In this case, since b and c are both objects, they will both be converted to "[object Object]". As a result, a[b] and a[c] are both equivalent to a["[object Object]" and can be used interchangeably. Therefore, setting or referencing a[c] is precisely the same as setting or referencing a[b].
+// If you even use it in the below way:
+var a = {},
+	b = { key: 'b' },
+	c = { key: 'c' };
+
+a[b] = 123;
+a[c] = 456;
+
+console.log(a[b]);
+// you'll get 456 instead of 123. And even if you declare a[b] later, after declaring a[c], you'll get the latest declared value:
+const a = {},
+	b = { c: 'b' },
+	c = { b: 'c' };
+
+a[c] = 333;
+a[b] = 111;
+
+console.log(a[b]);
+// now it is 111.
 
 // 9.
 for (var i = 0; i < 5; i++) {
