@@ -135,7 +135,7 @@ function foo2() {
 		'bar';
     };
 }
-// The `return` statement terminates and  after that there is an object, which is basically unreachable code. Since the `return` statement doesn't return anything explicitly, `undefined` will be returned.
+// The `return` statement terminates and after that there is an object, which is basically unreachable code. Since the `return` statement doesn't return anything explicitly, `undefined` will be returned.
 
 // 7.
 // Answers:
@@ -171,7 +171,8 @@ for (var i = 0; i < 5; i++) {
 	}, i * 1000);
 }
 // Answer: Output is 5 and five times 5. `setTimeout` is executed asynchronously. After 1000 milliseconds, a task is added to the task queue. Only when all the main lines are executed, the task in the task queue will be executed.
-// Therefore, when the main thread for loop is executed, the value of i is 5, and this time Go to the task queue to execute the task, `i` is all 5.
+// In other words, "i" is a global variable, the loop will be executed first as js is a single-threaded mechanism, the synchronization code is executed first, the asynchronous code is executed last, and `setTimeout` is asynchronously called.
+// Therefore, when the main thread for loop is executed, the value of i is already 5, and the function that was put into the asynchronous queue each time before will print out the value of i in sequence, that is, print 5 times in succession 5.
 // `setTimeout` will be executed every time the for loop, but the function inside will not be put into the task queue, so it is put 5 times; less than 1000 milliseconds after 5 executions of the for loop.
 // After 1000 milliseconds, all the functions in the task queue are executed, so the output is five.
 
