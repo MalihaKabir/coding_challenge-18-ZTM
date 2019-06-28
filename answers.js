@@ -195,7 +195,7 @@ a[c] = 333;
 a[b] = 111;
 
 console.log(a[b]);
-// now it is 111.
+// now it is 111. So, this ques is not mathematical rather it's more logic based.
 
 // 9.
 for (var i = 0; i < 5; i++) {
