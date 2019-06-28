@@ -170,18 +170,21 @@ for (var i = 0; i < 5; i++) {
 		console.log(i);
 	}, i * 1000);
 }
-// Answer: Output is 5 and five time 5. `setTimeout` is executed asynchronously. After 1000 milliseconds, a task is added to the task queue. Only when all the main lines are executed, the task in the task queue will be executed. Therefore, when the main thread for loop is executed, the value of i is 5, and this time Go to the task queue to execute the task, i is all 5.
+// Answer: Output is 5 and five times 5. `setTimeout` is executed asynchronously. After 1000 milliseconds, a task is added to the task queue. Only when all the main lines are executed, the task in the task queue will be executed.
+// Therefore, when the main thread for loop is executed, the value of i is 5, and this time Go to the task queue to execute the task, `i` is all 5.
 // `setTimeout` will be executed every time the for loop, but the function inside will not be put into the task queue, so it is put 5 times; less than 1000 milliseconds after 5 executions of the for loop.
-// 	After 1000 milliseconds, all the functions in the task queue are executed, so the output is five.
+// After 1000 milliseconds, all the functions in the task queue are executed, so the output is five.
 
 for (let i = 0; i < 5; i++) {
 	setTimeout(function () {
 		console.log(i);
 	}, i * 1000);
 }
-// Ans.: If you replace var with let, the output is 5 and 0, 1, 2, 3, 4.
+// Ans.: If you replace `var` with `let`, the output is 5 and 0, 1, 2, 3, 4.
+// Because `let i` is a block variable, each `i` can only survive to the end of the braces and does not assign the `i` value of the following for loop to the `i` in the previous `setTimeout`; `var i` is a local variable, this `i` The life cycle is not limited by the braces of the for loop.
+// Using `let` is the best option. In this case, `i` will not be stored as a reference variable in `setTimeout`. It is passed by value - the exact value will be stored.
 
-// Because let i is a block variable, each i can only survive to the end of the braces and does not assign the i value of the following for loop to the i in the previous `setTimeout`; var i is a local variable, this i The life cycle is not limited by the braces of the for loop.
+// In other words, this happens because with each iteration of the loop, let creates a new copy of "i" and initializes to value it was assigned at the beginning of the loop. So basically each setTimeout() gets a copy of the variable "i".
 
 
 // 10.
